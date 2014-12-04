@@ -23,26 +23,29 @@
  */
 package io.github.endron.lyortisTownGen.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 /**
- * Class representing a towns person. This is what this application is going to
- * create.
+ * The values in this enum represent the different age groups for pepole in
+ * town.
  */
-@Entity
-public class Person {
+public enum AgeGroup {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+	/**
+	 * The person is a child by the definition of its race.
+	 */
+	CHILD,
 
-	private Sex sex;
-	
-	private Race race;
-	
-	private AgeGroup ageGroup;
-	
-	private int age;
+	/**
+	 * The person is a young adult of its race.
+	 */
+	YOUNG_ADULT,
+
+	/**
+	 * The person is a full adult of its race.
+	 */
+	ADULT,
+
+	/**
+	 * The person is considered old for its race.
+	 */
+	OLD_PERSON;
 }
