@@ -21,29 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.endron.lyortisTownGen.createDataJob;
+package io.github.endron.lyortisTownGen.createDataStep;
 
-import static org.junit.Assert.assertNotNull;
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 import io.github.endron.lyortisTownGen.entities.Person;
 
-import org.junit.Test;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.NonTransientResourceException;
+import org.springframework.batch.item.ParseException;
+import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
- * Testcases for {@link SexProcessor}.
+ * Creates a given number of {@link Person}s. The created Persons have no
+ * attributes yet.
  */
-public class SexProcessorTest {
+@Component
+@Scope(SCOPE_PROTOTYPE)
+public class PersonReader implements ItemReader<Person> {
 
-	private final SexProcessor processor = new SexProcessor();
+	private final int NUMBER_OF_PERSONS = 423;
 
-	/**
-	 * Checks if any value at all is set by the Processor.
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void setsAnyValue() throws Exception {
-		final Person person = processor.process(new Person());
+	private int readPersons = 0;
 
-		assertNotNull(person.getSex());
+	@Override
+	public Person read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+		if (readPersons <= NUMBER_OF_PERSONS) {
+			readPersons++;
+			return new Person();
+		}
+
+		return null;
 	}
 }

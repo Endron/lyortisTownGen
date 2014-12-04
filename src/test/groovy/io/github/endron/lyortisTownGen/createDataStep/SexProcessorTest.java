@@ -21,43 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.endron.lyortisTownGen.createDataJob;
+package io.github.endron.lyortisTownGen.createDataStep;
 
-import static io.github.endron.lyortisTownGen.entities.Sex.FEMALE;
-import static io.github.endron.lyortisTownGen.entities.Sex.MALE;
-import io.github.endron.lyortisTownGen.RandomValuePicker;
+import static org.junit.Assert.assertNotNull;
+import io.github.endron.lyortisTownGen.createDataStep.SexProcessor;
 import io.github.endron.lyortisTownGen.entities.Person;
-import io.github.endron.lyortisTownGen.entities.Sex;
 
-import java.util.EnumMap;
-import java.util.Map;
-
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.stereotype.Component;
+import org.junit.Test;
 
 /**
- * Implementation of a processor setting the sex of a given person.
+ * Testcases for {@link SexProcessor}.
  */
-@Component
-public class SexProcessor implements ItemProcessor<Person, Person> {
+public class SexProcessorTest {
 
-	private final RandomValuePicker<Sex> picker;
+	private final SexProcessor processor = new SexProcessor();
 
 	/**
-	 * Constructor.
+	 * Checks if any value at all is set by the Processor.
+	 * 
+	 * @throws Exception
 	 */
-	public SexProcessor() {
-		final Map<Sex, Integer> drawtable = new EnumMap<>(Sex.class);
-		drawtable.put(FEMALE, 55);
-		drawtable.put(MALE, 45);
+	@Test
+	public void setsAnyValue() throws Exception {
+		final Person person = processor.process(new Person());
 
-		picker = new RandomValuePicker<>(drawtable, 165412L);
-	}
-
-	@Override
-	public Person process(final Person item) throws Exception {
-		item.setSex(picker.drawValue());
-
-		return item;
+		assertNotNull(person.getSex());
 	}
 }
