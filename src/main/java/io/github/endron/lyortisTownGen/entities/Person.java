@@ -28,15 +28,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Class representing a towns person. This is what this application is going
- * to create.
+ * Class representing a towns person. This is what this application is going to
+ * create.
  */
 @Entity
 public class Person {
-    
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    private Sex sex;
+
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	private Sex sex;
 }

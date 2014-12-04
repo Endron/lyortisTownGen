@@ -21,20 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.endron.lyortisTownGen.entities;
+package io.github.endron.lyortisTownGen;
+
+import static java.util.stream.Collectors.summingInt;
+
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
 
 /**
- * This enum represents the sex of a person. We will be somewhat conservativ and
- * only have two sexes.
+ * This class will pick a random value from an enum.
+ *
+ * @param <T>
+ *            the class from witch the values are going to be picked.
  */
-public enum Sex {
+public class RandomValuePicker<T extends Enum<?>> {
+
+	private final Map<T, Integer> drawtable;
+	private final Random random;
+
+	public RandomValuePicker(final Map<T, Integer> drawtable, final long randomSeed) {
+		this.drawtable = new TreeMap<>(drawtable);
+		this.random = new Random(randomSeed);
+	}
 
 	/**
-	 * Means the person is male.
+	 * Draws a new value from the enum using the pre defined drawtabel.
+	 *
+	 * @return the drawen value
 	 */
-	MALE,
-	/**
-	 * Means the persoen is female.
-	 */
-	FEMALE;
+	public T drawValue() {
+		final int randomValue = random.nextInt(drawMax());
+		int sum = 0;
+
+		for (final Map.Entry<T, Integer> entry : drawtable.entrySet()) {
+			if (entry.getValue() > randomValue - sum) {
+				return entry.getKey();
+			}
+
+			sum = sum + entry.getValue();
+		}
+
+		return null;
+	}
+
+	private int drawMax() {
+		return drawtable.values().stream().collect(summingInt(it -> it));
+	}
 }
