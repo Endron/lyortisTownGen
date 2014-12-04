@@ -32,17 +32,14 @@ import javax.persistence.Id;
  * create.
  */
 @Entity
-public class Person {
+class Person {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	Long id;
 
-	private Sex sex;
-	
-	private Race race;
-	
-	private AgeGroup ageGroup;
-	
-	private int age;
+	Sex sex;
+	Race race;
+	AgeGroup ageGroup;
+	int age;
 }

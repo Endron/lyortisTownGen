@@ -40,6 +40,17 @@ public class RandomValuePicker<T extends Enum<?>> {
 	private final Map<T, Integer> drawtable;
 	private final Random random;
 
+	/**
+	 * Creates a new {@link RandomValuePicker} using a {@link Map} to control
+	 * whitch Values get picked. The Map defines relativ properblyty for each
+	 * possible value. The long value is used to create a {@link Random} as a
+	 * controlled source for random numbers.
+	 * 
+	 * @param drawtable
+	 *            Map contailint relativ properblities for each value
+	 * @param randomSeed
+	 *            the source for the random numbers
+	 */
 	public RandomValuePicker(final Map<T, Integer> drawtable, final long randomSeed) {
 		this.drawtable = new TreeMap<>(drawtable);
 		this.random = new Random(randomSeed);
