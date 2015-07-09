@@ -23,46 +23,32 @@
  */
 package io.github.endron.lyortisTownGen.createDataStep
 
-import io.github.endron.lyortisTownGen.PersonRepository
+import io.github.endron.lyortisTownGen.RandomValuePicker
 import io.github.endron.lyortisTownGen.entities.Person
-import org.springframework.batch.core.Step
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.batch.item.ItemProcessor
+import org.springframework.stereotype.Component
 
-@Configuration
-class CreateDataStepConfig {
+import static io.github.endron.lyortisTownGen.entities.AgeGroup.*
 
-    @Autowired
-    StepBuilderFactory stepBuilderFactory
+@Component
+class AgeGroupProcessor implements ItemProcessor<Person, Person> {
 
-    @Autowired
-    PersonReader personReader
+    final RandomValuePicker randomValuePicker
 
-    @Autowired
-    SexProcessor sexProcessor
+    AgeGroupProcessor() {
+        final drawtabel = [:]
+        drawtabel.put(CHILD, 20)
+        drawtabel.put(YOUNG_ADULT, 35)
+        drawtabel.put(ADULT, 30)
+        drawtabel.put(OLD_PERSON, 15)
 
-    @Autowired
-    RaceProcessor raceProcessor
+        randomValuePicker = new RandomValuePicker(drawtabel, 453225L)
+    }
 
-    @Autowired
-    AgeGroupProcessor ageGroupProcessor
+    @Override
+    Person process(final Person item) {
+        item.ageGroup = randomValuePicker.drawValue()
 
-    @Autowired
-    PersonRepository personRepository
-
-    @Bean
-    Step createDataStep() {
-        stepBuilderFactory.get("createDataStep")
-            .chunk(100)
-            .reader(personReader)
-            .processor({ Person it ->
-                sexProcessor.process(it)
-                raceProcessor.process(it)
-                ageGroupProcessor.process(it)
-            })
-            .writer({ personRepository.save(it) })
-            .build()
+        return item
     }
 }
