@@ -23,6 +23,7 @@
  */
 package io.github.endron.lyortisTownGen;
 
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -31,6 +32,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * on some demographic values for the population.
  */
 @SpringBootApplication
+@EnableBatchProcessing
 public class Application {
 
 	/**
