@@ -43,7 +43,7 @@ class PersonReader implements ItemReader<Person> {
 
 	@Override
 	Person read() {
-		if (readPersons <= NUMBER_OF_PERSONS) {
+		if (readPersons < NUMBER_OF_PERSONS) {
 			readPersons++;
 			return new Person();
 		}
