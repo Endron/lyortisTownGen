@@ -24,7 +24,7 @@
 package io.github.endron.lyortisTownGen.entities;
 
 /**
- * The values in this enum represent the different age groups for pepole in
+ * The values in this enum represent the different age groups for people in
  * town.
  */
 public enum AgeGroup {
