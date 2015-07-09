@@ -47,5 +47,5 @@ public enum AgeGroup {
 	/**
 	 * The person is considered old for its race.
 	 */
-	OLD_PERSON;
+	OLD_PERSON
 }

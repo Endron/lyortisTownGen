@@ -41,5 +41,5 @@ public enum Race {
 	/**
 	 * The person is a dwarf.
 	 */
-	DWARF;
+	DWARF
 }

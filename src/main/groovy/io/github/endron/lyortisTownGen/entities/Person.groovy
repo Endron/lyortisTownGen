@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.endron.lyortisTownGen.entities;
+package io.github.endron.lyortisTownGen.entities
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
 /**
  * Class representing a towns person. This is what this application is going to
@@ -36,10 +36,10 @@ class Person {
 
 	@Id
 	@GeneratedValue
-	Long id;
+	Long id
 
-	Sex sex;
-	Race race;
-	AgeGroup ageGroup;
-	int age;
+	Sex sex
+	Race race
+	AgeGroup ageGroup
+	int age
 }

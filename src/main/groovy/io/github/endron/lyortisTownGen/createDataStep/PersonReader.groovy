@@ -21,17 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.endron.lyortisTownGen.createDataStep;
+package io.github.endron.lyortisTownGen.createDataStep
 
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
-import io.github.endron.lyortisTownGen.entities.Person;
+import io.github.endron.lyortisTownGen.entities.Person
+import org.springframework.batch.item.ItemReader
+import org.springframework.context.annotation.Scope
+import org.springframework.stereotype.Component
 
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE
 
 /**
  * Creates a given number of {@link Person}s. The created Persons have no
@@ -39,14 +36,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(SCOPE_PROTOTYPE)
-public class PersonReader implements ItemReader<Person> {
+class PersonReader implements ItemReader<Person> {
 
-	private final int NUMBER_OF_PERSONS = 423;
-
-	private int readPersons = 0;
+	final static int NUMBER_OF_PERSONS = 423
+	int readPersons = 0
 
 	@Override
-	public Person read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+	Person read() {
 		if (readPersons <= NUMBER_OF_PERSONS) {
 			readPersons++;
 			return new Person();

@@ -44,7 +44,7 @@ import org.junit.Test;
 public class RandomValuePickerTest {
 
 	protected enum TestValues {
-		VALUE_A, VALUE_B, VALUE_C;
+		VALUE_A, VALUE_B, VALUE_C
 	}
 
 	/**

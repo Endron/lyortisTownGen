@@ -36,5 +36,5 @@ public enum Sex {
 	/**
 	 * Means the persoen is female.
 	 */
-	FEMALE;
+	FEMALE
 }
