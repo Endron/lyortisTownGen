@@ -21,11 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.endron.lyortisTownGen;
+package io.github.endron.lyortisTownGen
 
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.github.endron.lyortisTownGen.createDataStep.CreateDataStepConfig
+import org.springframework.batch.core.Job
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.context.annotation.Bean
 
 /**
  * Main Class of the application. This App will create a town population based
@@ -33,7 +38,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableBatchProcessing
-public class Application {
+class Application {
+
+    @Autowired
+    JobBuilderFactory jobBuilderFactory
+
+    @Autowired
+    CreateDataStepConfig createDataStepConfig
 
 	/**
 	 * Start the application.
@@ -41,7 +52,14 @@ public class Application {
 	 * @param args
 	 *            call arguments
 	 */
-	public static void main(final String... args) {
-		SpringApplication.run(Application.class, args);
+	static void main(final String... args) {
+		SpringApplication.run(Application, args)
 	}
+
+    @Bean
+    Job mainJob() {
+        jobBuilderFactory.get('mainJob')
+                .start(createDataStepConfig.createDataStep())
+                .build()
+    }
 }
