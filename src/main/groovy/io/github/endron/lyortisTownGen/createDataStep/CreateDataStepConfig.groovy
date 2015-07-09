@@ -21,6 +21,9 @@ class CreateDataStepConfig {
     SexProcessor sexProcessor
 
     @Autowired
+    RaceProcessor raceProcessor
+
+    @Autowired
     PersonRepository personRepository
 
     @Bean
@@ -30,6 +33,7 @@ class CreateDataStepConfig {
             .reader(personReader)
             .processor({ Person it ->
                 sexProcessor.process(it)
+                raceProcessor.process(it)
             })
             .writer({ personRepository.save(it) })
             .build()
