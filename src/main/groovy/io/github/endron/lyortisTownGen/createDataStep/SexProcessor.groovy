@@ -21,19 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.endron.lyortisTownGen.createDataStep;
+package io.github.endron.lyortisTownGen.createDataStep
 
-import static io.github.endron.lyortisTownGen.entities.Sex.FEMALE;
-import static io.github.endron.lyortisTownGen.entities.Sex.MALE;
-import io.github.endron.lyortisTownGen.RandomValuePicker;
-import io.github.endron.lyortisTownGen.entities.Person;
-import io.github.endron.lyortisTownGen.entities.Sex;
+import io.github.endron.lyortisTownGen.RandomValuePicker
+import io.github.endron.lyortisTownGen.entities.Person
+import io.github.endron.lyortisTownGen.entities.Sex
+import org.springframework.batch.item.ItemProcessor
+import org.springframework.stereotype.Component
 
-import java.util.EnumMap;
-import java.util.Map;
-
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.stereotype.Component;
+import static io.github.endron.lyortisTownGen.entities.Sex.FEMALE
+import static io.github.endron.lyortisTownGen.entities.Sex.MALE
 
 /**
  * Implementation of a processor setting the sex of a given person.
@@ -41,21 +38,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class SexProcessor implements ItemProcessor<Person, Person> {
 
-	private final RandomValuePicker<Sex> picker;
+	final RandomValuePicker<Sex> picker
 
-	/**
-	 * Constructor.
-	 */
-	public SexProcessor() {
-		final Map<Sex, Integer> drawtable = new EnumMap<>(Sex.class);
-		drawtable.put(FEMALE, 55);
-		drawtable.put(MALE, 45);
+	SexProcessor() {
+		final  drawtable = [:]
+		drawtable.put(FEMALE, 55)
+		drawtable.put(MALE, 45)
 
 		picker = new RandomValuePicker<>(drawtable, 165412L);
 	}
 
 	@Override
-	public Person process(final Person item) throws Exception {
+	Person process(final Person item) {
 		item.setSex(picker.drawValue());
 
 		return item;
